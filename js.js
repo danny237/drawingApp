@@ -2,6 +2,8 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 var rectangle = canvas.getBoundingClientRect();
 var currentColorValue = "black", currentStrokeValue = 1;
+
+//fgetting color
 function defcolor(c){
     currentColorValue = c; 
     document.getElementById('dispColor').innerHTML = currentColorValue;
@@ -16,8 +18,13 @@ function defcolor(c){
 canvas.height = window.innerHeight - 160;
 canvas.width = window.innerWidth - 50;
 
+//clear the canvas
 let clear = document.getElementById('clear').addEventListener('click', clearCanvas);
-//variable
+function clearCanvas(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+//Checking either the user painting or not
 let painting = false;
 
 //start Function
@@ -38,16 +45,11 @@ function draw({clientX: x, clientY: y}){
     ctx.lineWidth = currentStrokeValue;
     ctx.lineCap = "round";
     ctx.strokeStyle = currentColorValue;
-    ctx.lineTo(x-8 ,y-8);
+    ctx.lineTo(x-8 ,y-8);       //margin 8 from top and left
     ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(x-8, y-8);    
-}
-
-//clear function:
-function clearCanvas(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-}
+};
 
 //main functin
 canvas.addEventListener('mousedown', start);
